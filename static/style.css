@@ -1,0 +1,94 @@
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Oswald', sans-serif;
+}
+p {
+    font-family: 'Raleway', sans-serif;
+}
+button {
+    font-family: 'Raleway', sans-serif;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#vm {
+    margin-left:20%;
+    margin-right:20%
+}
+.main-title {
+    font-size: 6em;
+}
+.container {
+    padding-left:0px;
+    padding-right:0px;
+}
+.jammer-row {
+    text-align: left;
+    width:550px;
+}
+.album-art-thumbnail {
+    height:60px;
+    width:60px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #555;
+}
+.thumbnail-title {
+    font-weight: bold;
+    font-size: 25px;
+    font-family: 'Oswald', sans-serif;
+}
+.thumbnail-other-info {
+    font-size: 15px;
+    font-family: 'Raleway', sans-serif;
+}
+.album-art {
+    height:500px;
+    width:500px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    border: 1px solid #555;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.track-info {
+    max-width: 800px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    #vm {
+        margin-left:20px;
+        margin-right:20px;
+    }
+    .main-title {
+        font-size: 300%;
+    }
+    .album-art {
+        height:250px;
+        width:250px;
+        margin-bottom: 15px;
+    }
+    .jammer-row {
+        text-align: left;
+        width:330px;
+    }
+    .form-group {
+        width:330px
+    }
+    .thumbnail-title {
+        font-weight: bold;
+        font-size: 15px;
+    }
+    .thumbnail-other-info {
+        font-size: 15px;
+    }
+    .album-art-thumbnail {
+        height:40px;
+        width:40px;
+    }
+}

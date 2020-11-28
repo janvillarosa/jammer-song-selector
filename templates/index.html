@@ -1,0 +1,109 @@
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS and Custom Styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <title>JAM OR NOT A JAM</title>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-57209072-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-57209072-1');
+    </script>
+</head>
+
+<body>
+    <!-- The id 'vm' is just for consistency - it can be anything you want -->
+    <div id="vm">
+        <!--BEGIN-->
+        <div v-if="page_step == 'start'" class="row h-100 justify-content-center align-items-center">
+            <div class="form-group" style="text-align: center;">
+                <h1 class="main-title">🔥👎</h1>
+                <h1 class="main-title">JAM OR NOT A JAM?</h1>
+                <h4>Wanna rate random songs and discover some good music along the way?</h4>
+                <p>
+                    You will listen to snippets random tracks across all genres.
+                    You have 30 seconds to decided whether its a jam or not.
+                    Turn up the volume for maximum effect!
+                </p>
+                <button style="margin-top:40px;" class="btn btn-success btn-lg" v-on:click.prevent="get_started()">LET'S GO!</button>
+            </div>
+        </div>
+
+
+        <!--MUSIC AND VOTES SECTION-->
+        <div v-if="page_step == 'music'" class="row h-100 justify-content-center align-items-center">
+            <div v-if="track_data != null"class="form-group">
+                <img class="album-art" v-bind:src="track_data.album_art_url" v-bind:alt="track_data.album">
+                <div class="track-info">
+                    <h1>[[ track_data.song ]]</h1>
+                    <h4>[[ artist ]]</h4>
+                </div>
+                <div class="container controls">
+                    <div class="row">
+                        <div v-if="vote_type != null" class="col-sm" style="margin-bottom:10px">
+                            <h4>[[ vote_message ]]</h4>
+                        </div>
+                        <div v-if="vote_type == null" class="col-sm" style="margin-bottom:10px">
+                            <button style="width: 300px;" class="btn btn-primary btn-lg" v-on:click.prevent="vote_jammer()">🔥 IT'S MY JAM</button>
+                        </div>
+                        <div v-if="vote_type == null" class="col-sm" style="margin-bottom:10px">
+                            <button style="width: 300px;" class="btn btn-danger btn-lg" v-on:click.prevent="vote_nojammer()">👎 NOT MY JAM</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div v-if="jammer_songs.length != 0" class="col-sm" style="margin-bottom:10px">
+                            <button style="margin-top:30px; box-shadow: none;" class="btn btn-light" v-on:click.prevent="generate_all_jammers()">I'm done voting. Show me my jams!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--SHOW ALL MUSIC SECTION-->
+        <div v-if="page_step == 'show_jams'" class="row h-100 justify-content-center align-items-center">
+            <div class="form-group" style="padding-top:50px; text-align: center;">
+                <h1>💖</h1>
+                <h1>Thanks for playing</h1>
+                <h4>Here's a list of songs you considered your jams.</h4>
+                <p>Psst. Click or tap on these songs to open them on Spotify!</p>
+                <div class="list-group">
+                    <a v-for="song in jammer_songs" :href=song.spotify_url class="jammer-row list-group-item list-group-item-action" target="_blank">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img class="album-art-thumbnail" v-bind:src="song.album_art_url" v-bind:alt="track_data.album">
+                                </div>
+                                <div class="col-10">
+                                    <div class="thumbnail-title">[[ song.song ]]</div>
+                                    <div class="thumbnail-other-info">[[ song.artist_str ]] - [[ song.album]]</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <button style="margin-top:40px;" class="btn btn-primary btn-lg" v-on:click.prevent="start_over()">Start Over</button>
+            </div>
+        </div>
+
+
+        <audio id="vid" :src="preview_track" ref="audio"></video>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+            <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
